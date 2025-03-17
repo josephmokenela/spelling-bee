@@ -66,9 +66,9 @@ function tabReducer(visibleTab, action) {
 
 function App() {
   const [counterData, counterDispatch] = useReducer(counterReducer, [
-    new CounterObj(1, "A", 1, 0),
-    new CounterObj(2, "B", 2, 0),
-    new CounterObj(3, "C", 1, 0),
+    new CounterObj(1, {longName: 'Counter A', shortName: 'A'}, 1, 0),
+    new CounterObj(2, {longName: 'Counter B', shortName: 'B'}, 2, 0),
+    new CounterObj(3, {longName: 'Counter C', shortName: 'C'}, 1, 0),
   ]);
 
   const [visibleTab, tabDispatch] = useReducer(tabReducer, 1);
@@ -125,7 +125,22 @@ function CounterList() {
 
 function Counter({ counter }) {
   const counterDispatch = useContext(CounterDispatchContext);
+  const visibleTab = useContext(TabContext);
   const id = useId();
+
+  useEffect(() => {
+    let timerId;
+    let seconds = 0;
+    if(counter.tab === visibleTab && counter.name.shortName === 'A') {
+      timerId = setInterval(() => {
+        seconds++;
+        console.log(`Time since ${counter.name.shortName} was available and/or clicked: ${seconds}s`);
+      }, 1000);
+    }
+    return () => {
+      clearInterval(timerId);
+    }
+  }, [counter.total]);
 
   function handleIncrementClick(event) {
     counterDispatch({
@@ -145,7 +160,7 @@ function Counter({ counter }) {
 
   return (
     <fieldset className="counter" id={id}>
-      <legend className="counter__legend">{counter.name}</legend>
+      <legend className="counter__legend">{counter.name.longName}</legend>
       {counter.total > 0 ? (
         <button
           className="button"
@@ -230,9 +245,11 @@ memo(function CounterSummaryHeader({ setVisibleTab1, setVisibleTab2 }) {
 });
 
 const CounterSummaryDetail = memo(function CounterSummaryDetail({ name, total }) {
+  // name.shortName = name.shortName + ':';
+  const cName = {...name, shortName: name.shortName + ':'};
   return (
     <p>
-      {name} ({total})
+      {cName.shortName} ({total})
     </p>
   );
 });
