@@ -1,68 +1,9 @@
-import { useEffect, useReducer, useContext, useMemo, useId, useCallback, createContext, memo } from "react";
+import { useEffect, useReducer, useContext, useMemo, useId, useCallback, memo } from "react";
+import { counterReducer } from './reducers/counterReducer';
+import { CounterObj } from './models/counterObj';
+import { tabReducer } from './reducers/tabReducer';
+import { CounterContext, CounterDispatchContext, TabContext, TabDispatchContext } from './contexts/context';
 import './App.css';
-
-/* Objects */
-
-class CounterObj {
-  constructor(id, name, tab, total) {
-    this.id = id;
-    this.name = name;
-    this.tab = tab;
-    this.total = total;
-  }
-}
-
-/* End Objects */
-const CounterContext = createContext(null);
-const CounterDispatchContext = createContext(null);
-const TabContext = createContext(null);
-const TabDispatchContext = createContext(null);
-
-function counterReducer(counterData, action) {
-  switch(action.type) {
-    case 'increment': {
-      return counterData.map((counter) => {
-        if(counter.id === action.id) {
-          return {
-            ...counter, total: counter.total + 1
-          };
-        } else {
-          return counter;
-        }
-      });
-    }
-    case 'decrement': {
-      return counterData.map((counter) => {
-        if(counter.id === action.id) {
-          return {
-            ...counter, total: counter.total >= 0 ? counter.total - 1 : 0
-          };
-        } else {
-          return counter;
-        }
-      });
-    }
-    default: {
-      throw Error('Unknown action: ' + action.type);
-    }
-  }
-}
-
-function tabReducer(visibleTab, action) {
-  switch(action.type) {
-    case 'change-tab': {
-      if(action.tab === visibleTab) {
-        return visibleTab;
-      } else {
-        return action.tab;
-      }
-
-    }
-    default: {
-      throw Error('Unknown action: ' + action.type);
-    }
-  }
-}
 
 function App() {
   const [counterData, counterDispatch] = useReducer(counterReducer, [
