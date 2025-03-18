@@ -1,3 +1,9 @@
+import { useContext } from "react";
+import { useEffect } from "react";
+import { useId } from "react";
+import { CounterDispatchContext } from "../contexts/context";
+import { TabContext } from "../contexts/context";
+
 export function Counter({ counter }) {
   const counterDispatch = useContext(CounterDispatchContext);
   const visibleTab = useContext(TabContext);

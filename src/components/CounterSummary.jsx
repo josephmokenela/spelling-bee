@@ -1,3 +1,8 @@
+import { useContext, useMemo, useCallback } from "react";
+import { CounterContext, TabContext, TabDispatchContext } from "../contexts/context";
+import { CounterSummaryHeader } from './CounterSummaryHeader';
+import { CounterSummaryDetail } from "./CounterSummaryDetail";
+
 export function CounterSummary() {
     const counterData = useContext(CounterContext);
     const visibleTab = useContext(TabContext);

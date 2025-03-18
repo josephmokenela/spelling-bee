@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 export const CounterSummaryHeader = 
 memo(function CounterSummaryHeader({ setVisibleTab1, setVisibleTab2 }) {
   return (

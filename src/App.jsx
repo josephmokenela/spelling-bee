@@ -1,8 +1,10 @@
-import { useReducer, memo } from "react";
+import { useReducer } from "react";
 import { counterReducer } from './reducers/counterReducer';
 import { CounterObj } from './models/counterObj';
 import { tabReducer } from './reducers/tabReducer';
 import { CounterContext, CounterDispatchContext, TabContext, TabDispatchContext } from './contexts/context';
+import { CounterList } from "./components/CounterList";
+import { CounterTools } from "./components/CounterTools";
 import './App.css';
 
 function App() {
