@@ -1,5 +1,4 @@
 import { useContext } from "react";
-import { useEffect } from "react";
 import { useId } from "react";
 import { CounterDispatchContext } from "../contexts/context";
 import { TabContext } from "../contexts/context";
@@ -8,20 +7,6 @@ export function Counter({ counter }) {
   const counterDispatch = useContext(CounterDispatchContext);
   const visibleTab = useContext(TabContext);
   const id = useId();
-
-  useEffect(() => {
-    let timerId;
-    let seconds = 0;
-    if(counter.tab === visibleTab && counter.name.shortName === 'A') {
-      timerId = setInterval(() => {
-        seconds++;
-        console.log(`Time since ${counter.name.shortName} was available and/or clicked: ${seconds}s`);
-      }, 1000);
-    }
-    return () => {
-      clearInterval(timerId);
-    }
-  }, [counter.total]);
 
   function handleIncrementClick(event) {
     counterDispatch({
