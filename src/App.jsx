@@ -1,22 +1,30 @@
 import { useEffect } from 'react';
 import './App.css';
+import { Header } from './components/Header';
+import { useState } from 'react';
 
 function App() {
+  const [data, setData] = useState();
 
   useEffect(() => {
-    let result = {};
-    fetch('/api/data.json', {
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-    .then(res => res.json())
-    .then(data => console.log(data));
+    async function fetchData() {
+      const result = await fetch('/api/data.json', {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      const json = await result.json();
+      setData(json.data.today);
+    }
+    fetchData();
   }, []);
 
   return (
     <>
-    
+      { 
+      data ? <Header date={data.displayDate} editor={data.editor} />
+      : <p>Loading...</p>
+    }
     </>
   );
 }
