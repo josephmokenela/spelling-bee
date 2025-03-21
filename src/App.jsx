@@ -6,6 +6,7 @@ import { Fragment } from 'react';
 import { Honeycomb } from './components/Honeycomb';
 import { Guess } from './components/Guess';
 import { CorrectGuesses } from './components/CorrectGuesses';
+import { Score } from './components/Score';
 
 function App() {
   const [data, setData] = useState();
@@ -55,6 +56,7 @@ function App() {
       data ? 
       <Fragment>
         <Header date={data.displayDate} editor={data.editor} />
+        <Score correctGuesses={correctGuesses} />
         <CorrectGuesses correctGuesses={correctGuesses} />
         <section className='container'>
           <div className='inputs'>
