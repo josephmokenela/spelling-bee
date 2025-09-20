@@ -2,11 +2,13 @@ body {
   font-size: 16px;
 }
 
-.title  {
+.title {
   margin: 0;
 }
 
-.date, .editor {
+/* Smaller text for date and editor, might be a typo here */
+.date,
+.editor {
   font-size: 0.875rem;
   margin-block-start: 0.25rem;
   margin-block-end: 0.25rem;
@@ -150,7 +152,7 @@ body {
   color: #333;
   border: 1px solid #dcdcdc;
   border-radius: 2.5em;
-  letter-spacing: .01em;
+  letter-spacing: 0.01em;
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
